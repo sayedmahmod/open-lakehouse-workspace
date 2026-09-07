@@ -1,0 +1,6 @@
+# Workspace API dependencies.
+# pyspark-client is the thin Spark Connect client (no JVM, no full PySpark).
+pyspark-client==4.1.0
+fastapi>=0.115
+uvicorn[standard]>=0.30
+httpx>=0.27

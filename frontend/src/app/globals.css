@@ -1,0 +1,444 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   Design tokens.
+   A teal/emerald semantic palette, defined once here and consumed everywhere
+   through var(--token). Every colour is declared in all three theme blocks
+   below (light, OS-dark, stamped-dark) so the theme toggle wins both ways.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* Surfaces */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F8F7;
+  --bg-tertiary: #E6ECEA;
+  --bg-danger: #FEF3F2;
+  --bg-success: #F1FAF0;
+  --bg-warning: #FFFAEC;
+  --bg-info: #EFFBF9;
+
+  /* Ink */
+  --text-primary: #10201E;
+  --text-secondary: #5D6E6B;
+  --text-placeholder: #5D6E6B;
+  --text-inverse: #FFFFFF;
+  --text-danger: #BE2C33;
+  --text-success: #2E7D32;
+  --text-warning: #A85B12;
+
+  /* Lines */
+  --border: #E3E9E7;
+  --border-strong: #CBD5D2;
+  --border-accessible: #5D6E6B;
+  --border-danger: #F6CFC9;
+  --border-warning: #F4D9A8;
+
+  /* Actions */
+  --action-primary-bg: #0D9488;
+  --action-primary-bg-hover: #0F766E;
+  --action-primary-bg-press: #115E59;
+  --action-primary-text: #FFFFFF;
+  --action-default-border: #C4CFCC;
+  --action-default-border-hover: #0D9488;
+  --action-default-text: #10201E;
+  --action-default-text-hover: #0F766E;
+  --action-default-bg-hover: rgba(13, 148, 136, 0.08);
+  --action-default-bg-press: rgba(13, 148, 136, 0.16);
+  --action-disabled-bg: #E6ECEA;
+  --action-disabled-border: #CBD5D2;
+  --action-disabled-text: #9AA8A5;
+  --action-danger-bg: #BE2C33;
+  --action-danger-bg-hover: #97161F;
+  --action-icon-default: #4E5F5C;
+  --action-icon-hover: #0F766E;
+  --link: #0D9488;
+  --link-hover: #0F766E;
+
+  /* Tables */
+  --table-row-hover: rgba(78, 95, 92, 0.04);
+  --table-row-selected: rgba(78, 95, 92, 0.08);
+  --table-header-bg: #F5F8F7;
+
+  /* Misc */
+  --code-bg: rgba(78, 95, 92, 0.08);
+  --overlay: rgba(6, 22, 20, 0.26);
+  --skeleton: rgba(154, 168, 165, 0.16);
+  --progress-track: #E6ECEA;
+  --progress-fill: #14B8A6;
+  --brand: #059669;
+  --focus-ring: #0D9488;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.16), 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  /* Tag hues */
+  --tag-default: #E4EBE9;
+  --tag-brown: #96601A;
+  --tag-coral: #C24036;
+  --tag-charcoal: #42544F;
+  --tag-indigo: #464CA0;
+  --tag-lemon: #F3C969;
+  --tag-lime: #3D8A1C;
+  --tag-pink: #B04A85;
+  --tag-purple: #7F5BC0;
+  --tag-teal: #067E72;
+  --tag-turquoise: #0E7C9E;
+  --tag-text: #FFFFFF;
+
+  /* Chart series — categorical palette (light steps), hue-spaced for
+     separation. Some slots sit under 3:1 contrast, so charts always ship a
+     legend plus a table view rather than relying on colour alone. */
+  --series-1: #0d9488;
+  --series-2: #e07a3f;
+  --series-3: #6366f1;
+  --series-4: #c98a00;
+  --series-5: #db6fa4;
+  --series-6: #17803d;
+  --series-7: #7c3aed;
+  --series-8: #d4453f;
+  --chart-grid: #E3E9E7;
+  --chart-axis: #5D6E6B;
+
+  /* Task graph canvas */
+  --dag-canvas-bg: #FFFFFF;
+  --dag-edge: #A2D2CB;
+  --dag-edge-strong: #0D9488;
+  --dag-node-border: #CBD5D2;
+  --dag-grid: #F1F5F4;
+
+  /* Metrics */
+  --sidebar-width: 244px;
+  --sidebar-width-collapsed: 60px;
+  --topbar-height: 48px;
+  --radius: 4px;
+  --radius-lg: 8px;
+}
+
+/* Dark theme. Declared under both the OS media query and the explicit
+   data-theme stamp so the toggle wins in both directions. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --bg-primary: #0E1A18;
+    --bg-secondary: #162422;
+    --bg-tertiary: #273936;
+    --bg-danger: rgba(190, 44, 51, 0.16);
+    --bg-success: rgba(46, 125, 50, 0.16);
+    --bg-warning: rgba(168, 91, 18, 0.16);
+    --bg-info: rgba(13, 148, 136, 0.16);
+
+    --text-primary: #E3EDEB;
+    --text-secondary: #8FA5A1;
+    --text-placeholder: #7F9793;
+    --text-inverse: #0E1A18;
+    --text-danger: #F0808A;
+    --text-success: #6BBF6E;
+    --text-warning: #E08A3C;
+
+    --border: #162422;
+    --border-strong: #273936;
+    --border-accessible: #BCCECA;
+    --border-danger: #F0808A;
+    --border-warning: #E08A3C;
+
+    --action-primary-bg: #2DD4BF;
+    --action-primary-bg-hover: #7BE9DA;
+    --action-primary-bg-press: #B3F3E9;
+    --action-primary-text: #0E1A18;
+    --action-default-border: #273936;
+    --action-default-border-hover: #7BE9DA;
+    --action-default-text: #E3EDEB;
+    --action-default-text-hover: #7BE9DA;
+    --action-default-bg-hover: rgba(123, 233, 218, 0.08);
+    --action-default-bg-press: rgba(123, 233, 218, 0.16);
+    --action-disabled-bg: #273936;
+    --action-disabled-border: #354A46;
+    --action-disabled-text: #5E736F;
+    --action-danger-bg: #F0808A;
+    --action-danger-bg-hover: #F7AAB1;
+    --action-icon-default: #8FA5A1;
+    --action-icon-hover: #7BE9DA;
+    --link: #2DD4BF;
+    --link-hover: #7BE9DA;
+
+    --table-row-hover: rgba(188, 206, 202, 0.04);
+    --table-row-selected: rgba(188, 206, 202, 0.08);
+    --table-header-bg: #162422;
+
+    --code-bg: #273936;
+    --overlay: rgba(0, 0, 0, 0.45);
+    --skeleton: rgba(143, 165, 161, 0.16);
+    --progress-track: #273936;
+    --progress-fill: #0D9488;
+    --focus-ring: #7BE9DA;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+
+    --tag-default: #273936;
+    --tag-text: #E3EDEB;
+
+    --series-1: #14a89a;
+    --series-2: #cc6a33;
+    --series-3: #5b60d6;
+    --series-4: #b07c00;
+    --series-5: #c96593;
+    --series-6: #1a8f45;
+    --series-7: #6d47cf;
+    --series-8: #cf4a45;
+    --chart-grid: #162422;
+    --chart-axis: #8FA5A1;
+
+    /* Task graph canvas */
+    --dag-canvas-bg: #0E1A18;
+    --dag-edge: #2F5A54;
+    --dag-edge-strong: #2DD4BF;
+    --dag-node-border: #273936;
+    --dag-grid: #16211F;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg-primary: #0E1A18;
+  --bg-secondary: #162422;
+  --bg-tertiary: #273936;
+  --bg-danger: rgba(190, 44, 51, 0.16);
+  --bg-success: rgba(46, 125, 50, 0.16);
+  --bg-warning: rgba(168, 91, 18, 0.16);
+  --bg-info: rgba(13, 148, 136, 0.16);
+
+  --text-primary: #E3EDEB;
+  --text-secondary: #8FA5A1;
+  --text-placeholder: #7F9793;
+  --text-inverse: #0E1A18;
+  --text-danger: #F0808A;
+  --text-success: #6BBF6E;
+  --text-warning: #E08A3C;
+
+  --border: #162422;
+  --border-strong: #273936;
+  --border-accessible: #BCCECA;
+  --border-danger: #F0808A;
+  --border-warning: #E08A3C;
+
+  --action-primary-bg: #2DD4BF;
+  --action-primary-bg-hover: #7BE9DA;
+  --action-primary-bg-press: #B3F3E9;
+  --action-primary-text: #0E1A18;
+  --action-default-border: #273936;
+  --action-default-border-hover: #7BE9DA;
+  --action-default-text: #E3EDEB;
+  --action-default-text-hover: #7BE9DA;
+  --action-default-bg-hover: rgba(123, 233, 218, 0.08);
+  --action-default-bg-press: rgba(123, 233, 218, 0.16);
+  --action-disabled-bg: #273936;
+  --action-disabled-border: #354A46;
+  --action-disabled-text: #5E736F;
+  --action-danger-bg: #F0808A;
+  --action-danger-bg-hover: #F7AAB1;
+  --action-icon-default: #8FA5A1;
+  --action-icon-hover: #7BE9DA;
+  --link: #2DD4BF;
+  --link-hover: #7BE9DA;
+
+  --table-row-hover: rgba(188, 206, 202, 0.04);
+  --table-row-selected: rgba(188, 206, 202, 0.08);
+  --table-header-bg: #162422;
+
+  --code-bg: #273936;
+  --overlay: rgba(0, 0, 0, 0.45);
+  --skeleton: rgba(143, 165, 161, 0.16);
+  --progress-track: #273936;
+  --progress-fill: #0D9488;
+  --focus-ring: #7BE9DA;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+
+  --tag-default: #273936;
+  --tag-text: #E3EDEB;
+
+  --series-1: #14a89a;
+  --series-2: #cc6a33;
+  --series-3: #5b60d6;
+  --series-4: #b07c00;
+  --series-5: #c96593;
+  --series-6: #1a8f45;
+  --series-7: #6d47cf;
+  --series-8: #cf4a45;
+  --chart-grid: #162422;
+  --chart-axis: #8FA5A1;
+
+  /* Task graph canvas */
+  --dag-canvas-bg: #0E1A18;
+  --dag-edge: #2F5A54;
+  --dag-edge-strong: #2DD4BF;
+  --dag-node-border: #273936;
+  --dag-grid: #16211F;
+}
+
+@theme inline {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-default: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-action-primary: var(--action-primary-bg);
+  --color-link: var(--link);
+  --radius-base: var(--radius);
+}
+
+/* ============================================================================
+   Base
+   ========================================================================== */
+
+* {
+  border-color: var(--border);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  /* 13px is the interface base size for this dense, table-heavy UI. */
+  font-size: 13px;
+  line-height: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code,
+pre,
+.mono {
+  font-family: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+  border-radius: 2px;
+}
+
+/* Scrollbars, tuned to read as part of the surface rather than the OS. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 5px;
+  border: 2px solid var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* ============================================================================
+   Primitives shared across the app
+   ========================================================================== */
+
+.lh-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.lh-panel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.lh-skeleton {
+  background: var(--skeleton);
+  border-radius: var(--radius);
+  animation: lh-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes lh-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+@keyframes lh-spin {
+  to { transform: rotate(360deg); }
+}
+
+.lh-spin {
+  animation: lh-spin 0.7s linear infinite;
+}
+
+/* CodeMirror is themed through our tokens so the editor matches the shell. */
+.cm-editor {
+  height: 100%;
+  font-size: 13px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.cm-editor.cm-focused {
+  outline: none;
+}
+
+.cm-gutters {
+  background: var(--bg-primary) !important;
+  color: var(--text-secondary) !important;
+  border-right: 1px solid var(--border) !important;
+}
+
+.cm-activeLine {
+  background: var(--table-row-hover) !important;
+}
+
+.cm-activeLineGutter {
+  background: var(--table-row-hover) !important;
+}
+
+.cm-selectionBackground,
+.cm-editor .cm-selectionBackground,
+.cm-content ::selection {
+  background: rgba(34, 114, 180, 0.18) !important;
+}
+
+.cm-tooltip-autocomplete {
+  background: var(--bg-primary) !important;
+  border: 1px solid var(--border-strong) !important;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+}
+
+.cm-tooltip-autocomplete ul li[aria-selected] {
+  background: var(--action-primary-bg) !important;
+  color: var(--action-primary-text) !important;
+}
